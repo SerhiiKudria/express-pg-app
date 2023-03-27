@@ -32,7 +32,20 @@ class User {
     }
   }
   static getById () {}
-  static updateById () {}
+  static async updateById (id, {firstName, lastName, email, tel }) {
+    const updateQuery = `
+      UPDATE users 
+      SET  first_name = '${firstName}', last_name = '${lastName}', email = '${email}', tel = '${tel}'
+      WHERE id = '${id}'
+      RETURNING *;
+    `;
+    try {
+      const updatedUser = await User.pool.query(updateQuery);
+      return updatedUser.rows[0];
+    } catch (err) {
+      throw new Error(err.detail);
+    }
+  }
   static async deleteById (id) {
     const deleteQuery = `
       DELETE FROM users

@@ -37,3 +37,15 @@ module.exports.deleteUser = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.updateUser = async (req, res, next) => {
+  const { userId } = req.params;
+  const { body } = req;
+
+  try {
+    const updatedUser = await User.updateById(userId, body);
+    res.status(200).send(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+};;

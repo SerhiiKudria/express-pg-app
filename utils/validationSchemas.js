@@ -11,3 +11,19 @@ module.exports.USER_CREATION_VALIDATION_SCHEMA = yup.object({
     .length(13)
     .matches(/^\+380\d{9}$/),
 });
+
+module.exports.USER_UPDATE_VALIDATION_SCHEMA = yup.object({
+  userId: yup
+  .number()
+  .positive()
+  .label('id')
+  .required()
+  .min(1),
+  firstName: NAME_VALIDATION_SCHEMA,
+  lastName: NAME_VALIDATION_SCHEMA,
+  email: yup.string().email(),
+  tel: yup
+    .string()
+    .length(13)
+    .matches(/^\+380\d{9}$/),
+});

@@ -13,7 +13,7 @@ usersRouter
 // /api/users/1
 usersRouter
   .route('/:userId')
-  .patch(() => {})
+  .patch(validate.validateUserOnUpdate, usersController.updateUser)
   .get((req, res) => res.send('ok1'))
   .delete(usersController.deleteUser);
 
