@@ -1,6 +1,6 @@
 const { Router } = require('express');
-const { usersController } = require('../controllers');
-const { paginate, validate } = require('../middleware');
+const { usersController, phonesController } = require('../controllers');
+const { paginate, validate, addPeriod, addFilter } = require('../middleware');
 
 // /api/users
 const usersRouter = Router();
@@ -16,6 +16,16 @@ usersRouter
   .patch(validate.validateUserOnUpdate, usersController.updateUser)
   .get((req, res) => res.send('ok1'))
   .delete(usersController.deleteUser);
+
+usersRouter
+  .route('/:userId/phones')
+  .get(
+    addPeriod.addPeriod, 
+    addFilter.addFilter, 
+    validate.validatePeriod,
+    paginate.paginateUser, 
+    phonesController.getUsersPhones)
+;
 
 module.exports = usersRouter;
 

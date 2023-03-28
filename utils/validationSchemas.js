@@ -27,3 +27,11 @@ module.exports.USER_UPDATE_VALIDATION_SCHEMA = yup.object({
     .length(13)
     .matches(/^\+380\d{9}$/),
 });
+
+module.exports.GET_USERS_PHONES = yup.object({
+  startDate: yup.date(),
+  endDate: yup.date().min(
+                  yup.ref('startDate'),
+                  "end date can't be before start date"
+                )
+});
